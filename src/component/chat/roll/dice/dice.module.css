@@ -1,0 +1,49 @@
+.hex {
+  cursor: pointer;
+  margin-top: 30px;
+  width: 85px;
+  height: 40px;
+  background-color: rgb(208, 134, 6);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 200ms;
+}
+
+.hex:before {
+  content: " ";
+  width: 0; height: 0;
+  border-bottom: 30px solid rgb(208, 134, 6);
+  border-left: 43px solid transparent;
+  border-right: 43px solid transparent;
+  position: absolute;
+  top: -30px;
+  transition: 200ms;
+}
+
+.hex:after {
+  content: "";
+  width: 0;
+  position: absolute;
+  bottom: -30px;
+  border-top: 30px solid rgb(208, 134, 6);
+  border-left: 43px solid transparent;
+  border-right: 43px solid transparent;
+  transition: 200ms;
+}
+
+.valorRolagem{
+  font-size: 35px;
+  font-weight: 600;
+}
+
+.hex:hover{
+  background-color: rgb(174, 111, 3);
+}
+.hex:hover::after{
+  border-top: 30px solid  rgb(174, 111, 3);
+}
+.hex:hover::before{
+  border-bottom: 30px solid  rgb(174, 111, 3);
+}

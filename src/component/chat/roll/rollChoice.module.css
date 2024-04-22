@@ -1,0 +1,71 @@
+.fundo{
+    position: relative;
+    background: white;
+    display: flex;
+    padding: 5px 10px;
+    align-items: center;
+    gap: 2px;
+    justify-content: space-between;
+    border-radius: 5px;
+    margin: 0px 10px 15px;
+}
+
+.fundoTest{
+    position: relative;
+    flex-direction: column;
+    background: white;
+    display: flex;
+    padding: 10px 0px;
+    align-items: center;
+    gap: 5px;
+    justify-content: space-between;
+    border-radius: 5px;
+    margin: 0px 10px 15px;
+}
+
+.fundoFlex{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.TextInitial{
+    color: #0E0F17;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.textChoice{
+    width: 100%;
+    text-align: center;
+    color: #0E0F17;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 100mx;
+}
+
+.textChoice:hover{
+    background-color: #9e9e9f;
+}
+
+.rolling{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: #38365C;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    z-index: 999;
+}
+
+.dice{
+    display: flex;
+    flex-direction: column;
+    gap: 45px;
+    align-items: center;
+}
