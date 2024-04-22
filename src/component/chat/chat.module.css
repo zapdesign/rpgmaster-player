@@ -82,7 +82,7 @@
 .fundoIcon{
     width: 15%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 
 .icons{

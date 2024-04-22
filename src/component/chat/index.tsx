@@ -69,6 +69,8 @@ function rollDice(text: any) {
 
 export default function Chat() {
 
+    const containerRef = useRef(null);
+
     const handleRollDice = (text: string) => {
         return new Promise((resolve, reject) => {
             const regex = /\b(\d+)d(\d+)\b/g;
@@ -121,9 +123,15 @@ export default function Chat() {
 
     const [msg, setMsg] = useState<Message[]>([])
 
+    function scroll() {
+        if (containerRef.current) {
+            console.log("teste")
+            containerRef.current.scrollTop = containerRef.current.scrollHeight;
+        }
+    }
+
     useEffect(() => {
-        function receivedMessage(message: Payload) {
-            console.log(message)
+        async function receivedMessage(message: Payload) {
             setMsg(prevMsg => [
                 ...prevMsg,
                 {
@@ -133,11 +141,12 @@ export default function Chat() {
                     isMine: message.player_id === users[0].id
                 }
             ]);
-
+            await new Promise(resolve => setTimeout(resolve, 10));
             scroll()
         }
 
         getOldMessages()
+
 
         socket.on('msgToClient', receivedMessage);
 
@@ -219,7 +228,11 @@ export default function Chat() {
     return (
         <>
             {!isVisible && (
-                <button className={styles.botaoAbrir} onClick={() => setIsVisible(true)}>
+                <button className={styles.botaoAbrir} onClick={() => {
+                    setIsVisible(true)
+                    scroll()
+                }
+                }>
                     <IoChatbubblesOutline />
                 </button>
             )}
@@ -231,7 +244,7 @@ export default function Chat() {
                     <div></div>
                 </div>
 
-                <div className={styles.fundoHistorico}>
+                <div className={styles.fundoHistorico} ref={containerRef}>
                     {msg && msg.map((cada: Message) => (
                         <div key={cada.id} className={`${cada.isMine ? styles.alignRight : styles.alignLeft}`}>
                             {cada.isMine ? (
@@ -262,11 +275,11 @@ export default function Chat() {
                     </div>
 
                     <div className={styles.fundoIcon}>
-                        <FaDiceSix className={styles.icons} onClick={() => {
+                        {/* <FaDiceSix className={styles.icons} onClick={() => {
                             setRollChoiceOn(!rollChoiceOn)
                             setChoice([])
                             setRollTestOn(false)
-                        }} />
+                        }} /> */}
                         <IoIosSend className={styles.icons} onClick={sendMessage} />
                     </div>
                 </div>
