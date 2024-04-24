@@ -4,16 +4,16 @@ import { axiosInstance } from "@/services/axiosInstance";
 
 
 
-export default function CheckBoxEstrutura({nome, dadoPincipal, dadosGerais, setNewCaracter, newCaracter, changedDado, caracter, haveInital}: any){
+export default function CheckBoxEstrutura({nome, dadoPincipal, dadosGerais, setNewCaracter, newCaracter, changedDado, caracter, haveInital, type = "caracter", number = 6, isCompany = false}: any){
 
-    const [ checkBoxGerais, setCheckBoxGerais ] = useState(Array(6).fill(false))
+    const [ checkBoxGerais, setCheckBoxGerais ] = useState(Array(number).fill(false))
 
     const [ haveInitial, setHaveInitial ] = useState(haveInital)
 
     const changeBoxApi = async (data: any) => {
         try{
 
-            await axiosInstance.patch(`player/caracter/${caracter}`, {
+            await axiosInstance.patch(`player/${type}/${caracter}`, {
                 ...data
             })
             
@@ -33,14 +33,26 @@ export default function CheckBoxEstrutura({nome, dadoPincipal, dadosGerais, setN
 
         if(type === false) {
             const newData = dadosGerais - 1
-            setNewCaracter({...newCaracter, [`${changedDado}_bool`]: newData})
-            changeBoxApi({[`${changedDado}_bool`]: newData})
+            if(!isCompany){
+                setNewCaracter({...newCaracter, [`${changedDado}_bool`]: newData})
+                changeBoxApi({[`${changedDado}_bool`]: newData})
+                return
+            }
+
+            setNewCaracter({...newCaracter, [`${changedDado}`]: newData})
+            changeBoxApi({[`${changedDado}`]: newData})
             return
         }
 
         const newData = dadosGerais + 1
-        setNewCaracter({...newCaracter, [`${changedDado}_bool`]: newData})
-        changeBoxApi({[`${changedDado}_bool`]: newData})
+        if(!isCompany){
+            setNewCaracter({...newCaracter, [`${changedDado}_bool`]: newData})
+            changeBoxApi({[`${changedDado}_bool`]: newData})
+            return
+        }
+        
+        setNewCaracter({...newCaracter, [`${changedDado}`]: newData})
+        changeBoxApi({[`${changedDado}`]: newData})
         return
     };
     

@@ -29,7 +29,7 @@ export default function SectionContext({children}: {children: React.ReactNode}){
             }                
         }
     }
-
+ 
 
     const { data, isLoading, isError } = useQuery('project', async () => {
         seachProject()        

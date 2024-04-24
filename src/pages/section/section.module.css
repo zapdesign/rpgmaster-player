@@ -43,6 +43,13 @@
     background: #282742;
 }
 
+.barraInicial{
+    margin: 15px 0px 5px;
+    height: 1px;
+    width: 100%;
+    background: #282742;
+}
+
 .barraVertical{
     width:1px;
     background: #282742;
