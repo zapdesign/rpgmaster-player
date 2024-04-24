@@ -12,6 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { axiosInstance } from '@/services/axiosInstance';
 import RollChoice from './roll';
 import Rolling from './roll/rollling';
+import { useCaracterStore } from '@/store/caracter';
 
 interface Message {
     id: string
@@ -103,19 +104,20 @@ export default function Chat() {
 
                 resultText += '\n';
 
-                resolve(`Resultados individuais:\n${resultText}Soma total: ${total}`);
+                resolve(`Resultados:\n${resultText}Soma total: ${total}`);
                 return
             } else {
                 // Se não for válido, exibe uma mensagem de erro
                 reject('O número máximo de dados de cada número é 7.');
             }
         })
-    }
+    } 
 
     const [roll, setRoll] = useState('')
     const [rollResult, setRollResult] = useState('')
 
     const { users } = useUsersStore()
+    const { caracter } = useCaracterStore()
 
     const [isVisible, setIsVisible] = useState(false);
 
@@ -178,7 +180,7 @@ export default function Chat() {
         }
     }
 
-    function enterMessage(event: any) {
+    function enterMessage(event: any) {  
         if (event.key === "Enter") {
             event.preventDefault()
             sendMessage()
@@ -198,9 +200,11 @@ export default function Chat() {
 
             const rolagem = await handleRollDice(message.text)
             if (rolagem) {
-                message.text = `${rolagem}`
+                message.text = `${caracter[0].name}:\n${rolagem}`
+                message.name = 'RPGMaster'
+                message.player_id = "01"
             }
-            socket.emit('msgToServer', message);
+            socket.emit('msgToServer', message); 
             setText('');
         }
     }

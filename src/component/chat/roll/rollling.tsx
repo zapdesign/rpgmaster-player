@@ -45,14 +45,15 @@ export default function Rolling({ test, setRolling, result, setResult }: any) {
         for (let i = 1; i <= caracter[0][`${test}_bool`]; i++) {
             newD6.push({ [`d${i}`]: 0 })
         }
+        console.log(dices)
 
         setDices({ ...dices, d6: newD6 })
         await new Promise(resolve => setTimeout(resolve, 500));
 
-        for (let i = 0; i < caracter[0][`${test}_bool`]; i++) {
-            await updateDice(`d6`, `d${i + 1}`, 6, true, i)
-            console.log(dices)
-        }
+        // for (let i = 0; i < newD6.length; i++) {
+        //     await updateDice(`d6`, `d${i + 1}`, 6, true, i)
+        //     console.log(dices)
+        // }
 
     }
 
@@ -85,7 +86,6 @@ export default function Rolling({ test, setRolling, result, setResult }: any) {
                                 if (i === index) {
                                     return newData; // Substituir o objeto no índice especificado pelo novo objeto
                                 }
-                                return item; // Retornar os outros objetos sem alterações
                             })
                         }));
                     }
