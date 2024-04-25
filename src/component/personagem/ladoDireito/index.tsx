@@ -11,6 +11,7 @@ export default function LadoDireito({ changePlayer, newCaracter, setNewCaracter 
 
     const [ imagePlayer, setImagePlayer ] = useState("")
 
+
     const changeBoxApi = async (data: any) => {
 
         try {

@@ -14,6 +14,8 @@ export default function Companhia({comitiva, setNewComitiva, setChanges}: any) {
     const { users } = useUsersStore()
     const [ myImage, setMyImage ] = useState('')
 
+    const isName = false
+
     const [ otherPlayers, setOtherPlayers ] = useState([])
 
     const getImage = async () => {
@@ -32,7 +34,7 @@ export default function Companhia({comitiva, setNewComitiva, setChanges}: any) {
         try{
             const response = await axiosInstance.get(`/player/all-comitiva/${users[0].project_id}`);
             const responseData = await response.data
-            const data = responseData.filter((cada: Comitiva) => cada.player_id !== caracter[0].player_id)
+            const data = responseData.filter((cada: Comitiva) => cada.player_id !== caracter[0].id)
             setOtherPlayers(data)
 
         }catch(err){
@@ -41,12 +43,16 @@ export default function Companhia({comitiva, setNewComitiva, setChanges}: any) {
         
     };
 
-    const { data } = useQuery("myImagee", () => {
+    const { data, isLoading } = useQuery("myImagee", () => {
         getImage()
         getAllComitiva()
     },{
         enabled: caracter[0] !== undefined
     })
+
+    if(isLoading){
+        return <p>Carregando...</p>
+    }
 
     return (
         <div className={styles.companhia}>
@@ -58,18 +64,22 @@ export default function Companhia({comitiva, setNewComitiva, setChanges}: any) {
                 </div>
                 <div className={styles.labelInput} style={{width: "30%"}}>
                     <label htmlFor="nome" className={styles.label}>Nome</label>
-                    <input type="text" name='nome' placeholder='Digite aqui...' value={comitiva.papel} onChange={(e) => {
-
+                    <input type="text" name='nome' placeholder='Digite aqui...' value={comitiva.nome} onChange={(e) => {
+                        if(isName){
+                            return
+                        }
                     }} className={styles.input} />
                 </div>
                 <div className={styles.labelInput} style={{width: "30%"}}>
                     <label htmlFor="papel" className={styles.label}>Papel de Jornada</label>
                     <input type="text" name='papel' placeholder='Digite aqui...' value={comitiva.papel} onChange={(e) => {
-
+                        setChanges({...comitiva, papel: e.target.value})
                     }} className={styles.input} />
                 </div>
-
-                <CheckBoxEstrutura dadosGerais={comitiva.fadiga_da_viagem} setNewCaracter={setNewComitiva} changedDado={"fadiga_da_viagem"} newCaracter={comitiva} caracter={users[0].id} type={"comitiva"} number={10} isCompany={true}></CheckBoxEstrutura>
+                
+                {caracter[0] !== undefined && (
+                    <CheckBoxEstrutura dadosGerais={comitiva.fadiga_da_viagem} setNewCaracter={setNewComitiva} changedDado={"fadiga_da_viagem"} newCaracter={comitiva} caracter={caracter[0].id} type={"comitiva"} number={7} isCompany={true}></CheckBoxEstrutura>
+                )}
             </div>
 
             {otherPlayers[0] !== undefined && otherPlayers.map((cada: Comitiva) => (

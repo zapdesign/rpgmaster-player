@@ -72,16 +72,16 @@ export default function SectionApp(){
             const data = await response.data
             addCaracter(data) 
             setNewCaracter({...data})
-            searchComitiva()
+            searchComitiva(data.id)
 
         }catch(err){
             console.error(err)
         }
     }
 
-    const searchComitiva = async () => {
+    const searchComitiva = async (id: string) => {
         try{
-            const response = await axiosInstance.get(`/player/comitiva/${users[0].id}`)
+            const response = await axiosInstance.get(`/player/comitiva/${id}`)
             const data = await response.data
             setNewComitiva({...data})
 
@@ -97,7 +97,7 @@ export default function SectionApp(){
                 ...newCaracter
             })
 
-            await axiosInstance.patch(`player/comitiva/${users[0].id}`, {
+            await axiosInstance.patch(`player/comitiva/${caracter[0].id}`, {
                 ...comitiva
             })
 

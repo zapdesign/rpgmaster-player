@@ -4,7 +4,7 @@ import { axiosInstance } from "@/services/axiosInstance";
 
 
 
-export default function CheckBoxEstrutura({nome, dadoPincipal, dadosGerais, setNewCaracter, newCaracter, changedDado, caracter, haveInital, type = "caracter", number = 6, isCompany = false}: any){
+export default function CheckBoxEstrutura({nome, dadoPincipal, dadosGerais, setNewCaracter, newCaracter, changedDado, caracter, haveInital, type = "caracter", number = 6, isCompany = false, hasModify = true}: any){
 
     const [ checkBoxGerais, setCheckBoxGerais ] = useState(Array(number).fill(false))
 
@@ -79,7 +79,11 @@ export default function CheckBoxEstrutura({nome, dadoPincipal, dadosGerais, setN
                     <input type="checkbox"
                     id={`checkbox${i + 1}`}
                     checked={cada}
-                    onChange={(e) => handleCheckboxChange(e.target.checked)}
+                    onChange={(e) => {
+                        if(hasModify){
+                            handleCheckboxChange(e.target.checked)
+                        }
+                    }}
                      />
                 </div>
             ))}

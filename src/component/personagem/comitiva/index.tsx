@@ -1,5 +1,7 @@
+import Cavalaria from "./cavalaria"
 import styles from "./comitiva.module.css"
 import Companhia from "./companhia"
+import Diario from "./diario"
 import Registro from "./registro"
 
 export default function Comitiva({comitiva, setNewComitiva, setChanges}: any) {
@@ -11,9 +13,9 @@ export default function Comitiva({comitiva, setNewComitiva, setChanges}: any) {
             <div className={styles.barraLateral}></div>
             <Companhia comitiva={comitiva} setNewComitiva={setNewComitiva} setChanges={setChanges}></Companhia>
             <div className={styles.barraLateral}></div>
-            <div className={styles.registro}></div>
+            <Cavalaria comitiva={comitiva} setNewComitiva={setNewComitiva} setChanges={setChanges}></Cavalaria>
             <div className={styles.barraLateral}></div>
-            <div className={styles.companhia}></div>
+            <Diario comitiva={comitiva} setNewComitiva={setNewComitiva} setChanges={setChanges}></Diario>
         </div>
     )
 }
