@@ -107,8 +107,14 @@ export default function LadoDireito({ changePlayer, newCaracter, setNewCaracter 
                 <div className={styles.fundoFoto}>
                     {imagePlayer ? (
                         <div className={styles.fundoFoto}>
-                            <img height="100%"  width="100%" style={{cursor: 'pointer'}} className={styles.imagePlayer} onClick={() => document.getElementById('file-upload').click()} src={`data:image/jpeg;base64,${imagePlayer}`}></img>
                             <input type="file" id="file-upload"  style={{cursor: 'pointer', display: "none"}} accept="image/png, image/jpeg" onChange={newImage}/>
+                            <img height="100%"  width="100%" style={{cursor: 'pointer'}} className={styles.imagePlayer} 
+                            onClick={() => {
+                                const fileUpload = document.querySelector('#file-upload') as HTMLInputElement;
+                                if (fileUpload) {
+                                    fileUpload.click();
+                                }
+                            }} src={`data:image/jpeg;base64,${imagePlayer}`} alt='imagem do jogador'></img>
                         </div>
                     ): (
                         <input type="file" style={{cursor: 'pointer'}} accept="image/png, image/jpeg" onChange={handleFileChange}/>

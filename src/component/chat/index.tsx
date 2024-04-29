@@ -13,12 +13,15 @@ import { axiosInstance } from '@/services/axiosInstance';
 import RollChoice from './roll';
 import Rolling from './roll/rollling';
 import { useCaracterStore } from '@/store/caracter';
+import ImageChat from './imageChat';
 
 interface Message {
     id: string
     name: string
     text: string
+    player_id: string
     isMine: boolean
+
 }
 
 interface Payload {
@@ -70,7 +73,7 @@ function rollDice(text: any) {
 
 export default function Chat() {
 
-    const containerRef = useRef(null);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     const handleRollDice = (text: string) => {
         return new Promise((resolve, reject) => {
@@ -127,11 +130,10 @@ export default function Chat() {
 
     function scroll() {
         if (containerRef.current) {
-            console.log("teste")
             containerRef.current.scrollTop = containerRef.current.scrollHeight;
         }
     }
-
+ 
     useEffect(() => {
         async function receivedMessage(message: Payload) {
             setMsg(prevMsg => [
@@ -140,26 +142,38 @@ export default function Chat() {
                     id: uuidv4(),
                     name: message.name,
                     text: message.text,
+                    player_id: message.player_id,
                     isMine: message.player_id === users[0].id
                 }
             ]);
             await new Promise(resolve => setTimeout(resolve, 10));
             scroll()
         }
-
-        getOldMessages()
-
-
-        socket.on('msgToClient', receivedMessage);
-
-        socket.on('connect', () => {
-            socket.emit('joinRoom', users[0].project_id)
-        });
-
+    
+        async function joinChatRoom() {
+            if (users[0] && users[0].project_id) {
+                socket.emit('joinRoom', users[0].project_id);
+                getOldMessages()
+            } else {
+            }
+        }
+    
+        async function setupSocket() {
+            socket.connect();
+    
+            socket.on('msgToClient', receivedMessage);
+    
+            socket.on('connect', joinChatRoom);
+        }
+    
+        setupSocket();
+    
         return () => {
+            socket.disconnect();
             socket.off('msgToClient', receivedMessage);
+            socket.off('connect', joinChatRoom);
         };
-    }, [socket]);
+    }, [socket, users]);
 
     const getOldMessages = async () => {
 
@@ -178,7 +192,7 @@ export default function Chat() {
         } catch (err) {
             console.error(err)
         }
-    }
+    } 
 
     function enterMessage(event: any) {  
         if (event.key === "Enter") {
@@ -212,6 +226,7 @@ export default function Chat() {
     function getFirstLetter(name: string) {
         return name.charAt(0).toUpperCase();
     }
+
 
     const [rollChoiceOn, setRollChoiceOn] = useState(false)
 
@@ -272,7 +287,7 @@ export default function Chat() {
                 {rolling && <Rolling test={test} setRolling={setRolling} result={result} setResult={setResult} ></Rolling>}
 
                 {rollChoiceOn && <RollChoice rollTestOn={rollTestOn} setRollTestOn={setRollTestOn} choice={choice} setChoice={setChoice} setTest={setTest} setRolling={setRolling}></RollChoice>}
-
+ 
                 <div className={styles.fundoDigitar}>
                     <div className={styles.fundoTexto}>
                         <textarea value={text} onChange={(e) => setText(e.target.value)} placeholder='Escreva aqui...' onKeyDown={enterMessage} className={styles.inputMsg}></textarea>

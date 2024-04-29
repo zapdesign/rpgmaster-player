@@ -27,7 +27,23 @@
     width: 100%;
 }
 
+.fundoEquipamento{
+    display: flex;
+    width: 80%;
+    height: 100%;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.fundoOverflowEquip{
+    height: 100%;
+}
+
 .inventarioOrganizacao{
+    align-items: flex-start;
+    
     margin-top: 25px;
     display: flex;
     gap: 15px;
@@ -53,4 +69,71 @@
 .barraVertical{
     width:1px;
     background: #282742;
+}
+
+
+.inputNome{
+    background-color: #403F52;
+    border-radius: 3px;
+    border: none;
+    padding: 10px 15px;
+    font-size: 12px;
+    width: 100%;
+}
+.inputGuerra{
+    background-color: #403F52;
+    border-radius: 3px;
+    border: none;
+    padding: 5px 15px;
+    font-size: 12px;
+    width: 100%;
+}
+
+.labelInput{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.fundoFlex{
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    justify-content: space-between;
+}
+.fundoFlexInput{
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    align-items: center;
+}
+
+.fundoFlex60{
+    display: flex;
+    width: 54%;
+}
+.fundoFlex30{
+    display: flex;
+    width: 35%;
+    align-items: flex-end;
+}
+
+.fundoFlex20{
+    display: flex;
+    width: 23%;
+}
+.fundoFlex13{
+    display: flex;
+    align-items: flex-end;
+    width: 10%;
+
+}
+
+.label{
+    font-size: 11px;
+}
+
+.nameFont{
+    font-family: 'Aniron', 'Cinzel', sans-serif;
+    font-size: 12px;
 }

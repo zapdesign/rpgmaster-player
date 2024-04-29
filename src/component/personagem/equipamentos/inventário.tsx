@@ -3,108 +3,77 @@ import { axiosInstance } from '@/services/axiosInstance'
 import { useState } from 'react'
 import { useQuery } from 'react-query'
 import { useCaracterStore } from '@/store/caracter'
-import { FaPlus } from "react-icons/fa6";
 import { IoTrashOutline } from "react-icons/io5";
+import { PlayerInventory } from '@/pages/section'
+import { Dispatch } from 'react';
 
 
-export default function Inventario(){
+export default function Inventario({equip, setGeral, setChanges, searchEquipament}: any){
 
     const { caracter } = useCaracterStore()
 
-    const [ equipamento, setEquipamento ] = useState([])
 
-    const searchEquipament = async () => {  
+    const [ cada, setEquipamento ] = useState(equip)
 
+    const attEquip = async (event: any) => {
+        if (event.key === 'Enter') {
+            try{
+                await axiosInstance.patch(`player/equipament/${cada.id}`, {
+                    ...cada
+                })
+                return
+
+            }catch(err){
+                console.error(err)
+            }
+        }
+    }
+    
+
+    const deleteEquipament = async () => {
         try{
-            const response = await axiosInstance.get(`/player/equipament/${caracter[0].player_id}`)
-            const data = await response.data
-            setEquipamento(data)
+            await axiosInstance.delete(`/player/equipament/${cada.id}`)
+            searchEquipament(cada.player_id)
 
         }catch(err){
             console.error(err)
         }
     }
-
-    const createEquipament = async () => {
-        try{
-            await axiosInstance.post(`/player/equipament/${caracter[0].player_id}`)
-            searchEquipament()
-
-        }catch(err){
-            console.error(err)
-        }
-    }
-
-    const deleteEquipament = async (id: string) => {
-        try{
-            await axiosInstance.delete(`/player/equipament/${id}`)
-            searchEquipament()
-
-        }catch(err){
-            console.error(err)
-        }
-    }
-
-
-    const { data, isLoading, isError } = useQuery('equipament', async () => {
-        await searchEquipament()
-    },{
-        enabled: caracter[0] !== undefined
-    })
 
 
     return (
         <>
-            {equipamento && (
+        <div key={cada.id} className={styles.fundoFlexInput}>
+            <div className={styles.fundoFlex30}>
+                <input type="text" name='equipamento' placeholder='Digite aqui...' value={cada.equipamento_de_guerra} onChange={(e) => {
+                    setEquipamento({...cada, equipamento_de_guerra: e.target.value}) 
+                    
+                    }} onKeyDown={(e) => attEquip(e)} className={styles.inputGuerra}/>
+            </div>
+            <div className={styles.fundoFlex13}>
+                <input type="text" name='dano' placeholder='Digite aqui...' value={cada.dano} onChange={(e) => {
+                    setEquipamento({...cada, dano: Number(e.target.value)}) 
+                    }} onKeyDown={(e) => attEquip(e)} className={styles.inputGuerra}/>
+            </div>
+            <div className={styles.fundoFlex13}>
+                <input type="text" name='ferimento' placeholder='Digite aqui...' value={cada.ferimento} onChange={(e) => {
+                    setEquipamento({...cada, ferimento: Number(e.target.value)}) 
+                    }} onKeyDown={(e) => attEquip(e)} className={styles.inputGuerra}/>
+            </div>
+            <div className={styles.fundoFlex13}>
+                <input type="text" name='carga' placeholder='Digite aqui...' value={cada.carga} onChange={(e) => {
+                    setEquipamento({...cada, carga: Number(e.target.value)}) 
+                    }} onKeyDown={(e) => attEquip(e)} className={styles.inputGuerra}/>
+            </div>
+            <div className={styles.fundoFlex30}>
+                <input type="text" name='anotacao_equipamento' placeholder='Digite aqui...' value={cada.anotacao_equipamento} onChange={(e) => {
+                    setEquipamento({...cada, anotacao_equipamento: e.target.value}) 
+                    }} onKeyDown={(e) => attEquip(e)} className={styles.inputGuerra}/>
+            </div>
 
-                <div className={styles.fundoEquipamento}>
-                    <div className={styles.fundoFlex}>
-                        <div className={styles.fundoFlex30}>
-                            <p className={styles.nameFont}>Equipamento de guerra</p>
-                        </div>
-                        <div className={styles.fundoFlex13}>
-                            <p className={styles.label}>Dano</p>
-                        </div>
-                        <div className={styles.fundoFlex13}>
-                            <p className={styles.label}>Ferimento</p>
-                        </div>
-                        <div className={styles.fundoFlex13}>
-                            <p className={styles.label}>Carga</p>
-                        </div>
-                        <div className={styles.fundoFlex30}>
-                            <p className={styles.label}>Anotações</p>
-                        </div>
-                    </div>
+            <IoTrashOutline style={{cursor: 'pointer'}} onClick={deleteEquipament}/>
+        </div>  
 
-                    {equipamento[0] !== undefined && equipamento.map(cada => (
-                        <div key={cada.id} className={styles.fundoFlexInput}>
-                            <div className={styles.fundoFlex30}>
-                                <input type="text" name='escudo' placeholder='Digite aqui...' value={cada.equipamento_de_guerra} onChange={(e) => setEquipamento({...equipamento, equipamento_de_guerra: e.target.value})} className={styles.inputGuerra}/>
-                            </div>
-                            <div className={styles.fundoFlex13}>
-                                <input type="text" name='escudo' placeholder='Digite aqui...' value={cada.dano} onChange={(e) => setEquipamento({...equipamento, equipamento_de_guerra: e.target.value})} className={styles.inputGuerra}/>
-                            </div>
-                            <div className={styles.fundoFlex13}>
-                                <input type="text" name='escudo' placeholder='Digite aqui...' value={cada.ferimento} onChange={(e) => setEquipamento({...equipamento, equipamento_de_guerra: e.target.value})} className={styles.inputGuerra}/>
-                            </div>
-                            <div className={styles.fundoFlex13}>
-                                <input type="text" name='escudo' placeholder='Digite aqui...' value={cada.carga} onChange={(e) => setEquipamento({...equipamento, equipamento_de_guerra: e.target.value})} className={styles.inputGuerra}/>
-                            </div>
-                            <div className={styles.fundoFlex30}>
-                                <input type="text" name='escudo' placeholder='Digite aqui...' value={cada.anotacao_equipamento} onChange={(e) => setEquipamento({...equipamento, equipamento_de_guerra: e.target.value})} className={styles.inputGuerra}/>
-                            </div>
-
-                            <IoTrashOutline style={{cursor: 'pointer'}} onClick={() => deleteEquipament(cada.id)}/>
-
-
-                        </div>  
-                    ))}
-                    <div>
-                        <FaPlus style={{cursor: 'pointer',height: '15px', width: '15px'}} onClick={createEquipament}/>
-                    </div>
-                </div>
-            )}
-        
         </>
     )
 }

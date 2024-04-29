@@ -66,9 +66,8 @@
     font-size: 11px;
 }
 
-
 .fundoEquipamento{
-    width: 66%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;

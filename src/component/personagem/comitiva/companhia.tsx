@@ -73,7 +73,8 @@ export default function Companhia({comitiva, setNewComitiva, setChanges}: any) {
                 <div className={styles.labelInput} style={{width: "30%"}}>
                     <label htmlFor="papel" className={styles.label}>Papel de Jornada</label>
                     <input type="text" name='papel' placeholder='Digite aqui...' value={comitiva.papel} onChange={(e) => {
-                        setChanges({...comitiva, papel: e.target.value})
+                        setNewComitiva({...comitiva, papel: e.target.value})
+                        setChanges(true)
                     }} className={styles.input} />
                 </div>
                 

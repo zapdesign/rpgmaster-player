@@ -50,7 +50,7 @@ export default function BlocoPrincipal({ changePlayer, newCaracter, setNewCaract
 
                                         <div className={styles.labelInput}>
                                             <label htmlFor="vida" className={styles.label}>Vida</label>
-                                            <input type="number" name='vida' placeholder='Digite aqui...' value={newCaracter.padrao_de_vida} onChange={(e) => {
+                                            <input type="text" name='vida' placeholder='Digite aqui...' value={newCaracter.padrao_de_vida} onChange={(e) => {
                                                 changePlayer()
                                                 setNewCaracter({ ...newCaracter, padrao_de_vida: e.target.value })
                                             }} className={styles.input} />
