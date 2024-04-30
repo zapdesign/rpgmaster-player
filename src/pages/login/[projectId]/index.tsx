@@ -47,10 +47,10 @@ export default function ProjectLogin() {
             }
 
             if(msg === "Email or password provide is incorrect."){
-              msg = 'Email ou senha estão incorretos.'
+              msg = 'Acesso ou senha estão incorretos.'
             }
 
-            toast(msg, {
+            toast(`Algo de errado com os acessos.`, {
               position: "bottom-center",
               autoClose: 3000,
               type: "error",
