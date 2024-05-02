@@ -72,7 +72,7 @@ export default function MenuPrincipal({
               <Image width={100} height={15} src="/logo.svg" alt="Logo RPG Master"></Image> 
 
               <Link href={`/section`} style={{marginTop: '35px', fontSize: '12px', display: 'flex', gap: '10px',padding: '12px 10px', backgroundColor: isActive(`/section`) ? "#12131D" : "none", border: isActive(`/section`) ? "solid 1px #292943" : "none", borderRadius: '10px'}}><GoPeople/> Personagem</Link>
-              <Link href={`/section/images`} style={{marginTop: '15px', fontSize: '12px', display: 'flex', gap: '10px',padding: '12px 10px', backgroundColor: isActive(`/section/images`) ? "#12131D" : "none", border: isActive(`/section/images`) ? "solid 1px #292943" : "none", borderRadius: '10px'}}><FaFilm/> Cenas</Link>
+              <Link href={`/section/images`} style={{marginTop: '15px', fontSize: '12px', display: 'flex', gap: '10px',padding: '12px 10px', backgroundColor: isActive(`/section/images`) ? "#12131D" : "none", border: isActive(`/section/images`) ? "solid 1px #292943" : "none", borderRadius: '10px'}}><FaFilm/> Imagens</Link>
             
               <div style={{marginTop: '450px', fontSize: '12px', display: 'flex', gap: '10px',padding: '12px 10px', color:" red", cursor: "pointer"}} onClick={exit}><MdLogout /> Deslogar</div>
             </section>

@@ -70,7 +70,7 @@ export default function Companhia({comitiva, setNewComitiva, setChanges}: any) {
                         }
                     }} className={styles.input} />
                 </div>
-                <div className={styles.labelInput} style={{width: "30%"}}>
+                <div className={styles.labelInput} style={{width: "40%"}}>
                     <label htmlFor="papel" className={styles.label}>Papel de Jornada</label>
                     <input type="text" name='papel' placeholder='Digite aqui...' value={comitiva.papel} onChange={(e) => {
                         setNewComitiva({...comitiva, papel: e.target.value})
@@ -79,7 +79,13 @@ export default function Companhia({comitiva, setNewComitiva, setChanges}: any) {
                 </div>
                 
                 {caracter[0] !== undefined && (
-                    <CheckBoxEstrutura dadosGerais={comitiva.fadiga_da_viagem} setNewCaracter={setNewComitiva} changedDado={"fadiga_da_viagem"} newCaracter={comitiva} caracter={caracter[0].id} type={"comitiva"} number={7} isCompany={true}></CheckBoxEstrutura>
+                    <div className={styles.labelInput} style={{width: "15%"}}>
+                        <label htmlFor="fadiga" className={styles.label}>Fadiga</label>
+                        <input type="number" name='fadiga' placeholder='Digite aqui...' value={comitiva.fadiga_da_viagem} onChange={(e) => {
+                            setNewComitiva({...comitiva, fadiga_da_viagem: Number(e.target.value)})
+                            setChanges(true)
+                        }} className={styles.input} />
+                    </div>
                 )}
             </div>
 

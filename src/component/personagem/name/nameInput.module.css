@@ -46,6 +46,8 @@
     cursor: pointer;
     transition: 100ms;
     border-radius: 3px;
+    position: fixed;
+    z-index: 25;
 }
 
 .button:hover{

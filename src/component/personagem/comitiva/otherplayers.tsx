@@ -42,7 +42,7 @@ export default function OtherPlayers({cada}: any) {
                         }
                     }} className={styles.input} />
             </div>
-            <div className={styles.labelInput} style={{width: "30%"}}>
+            <div className={styles.labelInput} style={{width: "40%"}}>
                 <label htmlFor="papel" className={styles.label}>Papel de Jornada</label>
                 <input type="text" name='papel' placeholder='Digite aqui...' value={cada.papel} onChange={(e) => {
                         if(isName){
@@ -51,7 +51,11 @@ export default function OtherPlayers({cada}: any) {
                     }} className={styles.input} />
             </div>
 
-            <CheckBoxEstrutura dadosGerais={cada.fadiga_da_viagem} number={7} hasModify={false}></CheckBoxEstrutura>
+            <div className={styles.labelInput} style={{width: "15%"}}>
+                        <label htmlFor="fadiga" className={styles.label}>Fadiga</label>
+                        <input type="number" name='fadiga' placeholder='Digite aqui...' value={cada.fadiga_da_viagem} onChange={(e) => {
+                        }} className={styles.input} />
+                    </div>
         </div>
     )
 }
