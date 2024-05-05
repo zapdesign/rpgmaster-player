@@ -23,8 +23,10 @@ export default function ImageActive({users}: any) {
     const [ actualImagem, setActualImage ] = useState('')
 
     const getImage = async (image: string) => {
-        console.log(image)
-        if(image === "") return
+        if(image === "") {
+            setActualImage("")
+            return
+        }
         try{
             const response = await axiosInstance(`upload/get/${image}`)
             const data = await response.data
