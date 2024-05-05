@@ -90,8 +90,8 @@ export default function ImagesMaster(){
                                 <PerImage cada={cada} setModal={setModal} modal={modal} openImage={openImage}></PerImage>
                             </div>
                         ))
-                        ) : typeImage === "atual" ? (
-                            <ImageActive></ImageActive>
+                        ) : typeImage === "atual" && users[0] !== undefined ? (
+                            <ImageActive users={users}></ImageActive>
                         ) : (
                             <p>Nenhuma imagem encontrada</p>
                         )}

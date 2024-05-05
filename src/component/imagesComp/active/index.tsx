@@ -18,17 +18,19 @@ interface Payload {
     project_id: string
 }
 
-export default function ImageActive() {
+export default function ImageActive({users}: any) {
 
     const [ actualImagem, setActualImage ] = useState('')
-    const { users } = useUsersStore()
 
     const getImage = async (image: string) => {
+        console.log(image)
+        if(image === "") return
         try{
             const response = await axiosInstance(`upload/get/${image}`)
             const data = await response.data
             const novaBase64Image = Buffer.from(data.data, 'binary').toString('base64');
             setActualImage(novaBase64Image)
+            return
         }catch(err){
             console.error(err)
         }
@@ -37,10 +39,9 @@ export default function ImageActive() {
     const getOlderImage = async () => {
 
         try {
-            console.log(`/images/atual-image/${users[0].project_id}`)
             const response = await axiosInstance.get(`/images/atual-image/${users[0].project_id}`)
             const data = await response.data
-            console.log(data)
+            if(data[0].text === "") return
             getImage(data[0].text)
 
         } catch (err) {
@@ -51,14 +52,12 @@ export default function ImageActive() {
     useEffect(() => {
         async function receivedMessage(message: Payload) {
             getImage(message.text)
+            console.log("mensagem nova", message)
         }
     
         async function joinChatRoom() {
-            if (users[0] && users[0].project_id) {
-                socket.emit('joinRoom', users[0].project_id);
-                getOlderImage()
-            } else {
-            }
+            socket.emit('joinRoom', users[0].project_id);
+            getOlderImage()
         }
     
         async function setupSocket() {
