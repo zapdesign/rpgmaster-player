@@ -175,51 +175,6 @@ export default function Chat() {
             containerRef.current.scrollTop = containerRef.current.scrollHeight;
         }
     }
- 
-    useEffect(() => {
-        async function receivedMessage(message: Payload) {
-            setMsg(prevMsg => [
-                ...prevMsg,
-                {
-                    id: uuidv4(),
-                    name: message.name,
-                    text: message.text,
-                    player_id: message.player_id,
-                    isMine: message.player_id === caracter[0].id
-                }
-            ]);
-            await new Promise(resolve => setTimeout(resolve, 10));
-            scroll()
-        }
-        console.log(caracter[0])
-        console.log(users[0])
-        async function joinChatRoom() {
-            if (users[0] && users[0].project_id) {
-                socket.emit('joinRoom', users[0].project_id);
-                getOldMessages()
-                console.log("dps", caracter[0])
-                console.log("dps", users[0])
-            } else {
-            }
-        }
-    
-        async function setupSocket() {
-            socket.connect();
-    
-            socket.on('msgToClient', receivedMessage);
-    
-            socket.on('connect', joinChatRoom);
-        }
-    
-        setupSocket();
-    
-        return () => {
-            socket.disconnect();
-            socket.off('msgToClient', receivedMessage);
-            socket.off('connect', joinChatRoom);
-        };
-    }, [socket, users]);
-
 
     const getOldMessages = async () => {
 
@@ -240,6 +195,48 @@ export default function Chat() {
             console.error(err)
         }
     } 
+ 
+    useEffect(() => {
+        async function receivedMessage(message: Payload) {
+            setMsg(prevMsg => [
+                ...prevMsg,
+                {
+                    id: uuidv4(),
+                    name: message.name,
+                    text: message.text,
+                    player_id: message.player_id,
+                    isMine: message.player_id === caracter[0].id
+                }
+            ]);
+            await new Promise(resolve => setTimeout(resolve, 10));
+            scroll()
+        }
+        console.log(caracter[0])
+        async function joinChatRoom() {
+            socket.emit('joinRoom', users[0].project_id);
+            getOldMessages()
+            console.log("dps", users[0].project_id)
+        }
+    
+        async function setupSocket() {
+            socket.connect();
+    
+            socket.on('msgToClient', receivedMessage);
+    
+            socket.on('connect', joinChatRoom);
+        }
+    
+        setupSocket();
+    
+        return () => {
+            socket.disconnect();
+            socket.off('msgToClient', receivedMessage);
+            socket.off('connect', joinChatRoom);
+        };
+    }, [socket, users]);
+
+
+    
 
     function enterMessage(event: any) {  
         if (event.key === "Enter") {
