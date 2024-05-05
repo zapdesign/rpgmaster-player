@@ -31,7 +31,8 @@ export default function LadoDireito({ changePlayer, newCaracter, setNewCaracter 
       
         try {
           const resposta = await axiosInstance.post(`/upload/player/${caracter[0].id}`, formData);
-          getImage()
+          await getImage()
+          return
         } catch (erro) {
           console.error('Erro ao enviar o arquivo:', erro);
         }

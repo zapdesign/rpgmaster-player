@@ -191,11 +191,14 @@ export default function Chat() {
             await new Promise(resolve => setTimeout(resolve, 10));
             scroll()
         }
-    
+        console.log(caracter[0])
+        console.log(users[0])
         async function joinChatRoom() {
             if (users[0] && users[0].project_id) {
                 socket.emit('joinRoom', users[0].project_id);
                 getOldMessages()
+                console.log("dps", caracter[0])
+                console.log("dps", users[0])
             } else {
             }
         }
@@ -216,6 +219,7 @@ export default function Chat() {
             socket.off('connect', joinChatRoom);
         };
     }, [socket, users]);
+
 
     const getOldMessages = async () => {
 
