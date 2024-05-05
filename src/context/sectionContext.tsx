@@ -34,7 +34,8 @@ export default function SectionContext({children}: {children: React.ReactNode}){
     const { data, isLoading, isError } = useQuery('project', async () => {
         seachProject()        
     },{
-        enabled: !!projectId 
+        enabled: !!projectId ,
+        staleTime: 1000 * 60 * 5,
     })
 
     if(isLoading){
