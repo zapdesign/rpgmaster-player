@@ -79,7 +79,7 @@ export default function Inventario({equip, searchEquipament}: any){
                     }} className={styles.inputGuerra}/>
             </div>
 
-            <IoTrashOutline style={{cursor: 'pointer'}} onClick={deleteEquipament}/>
+            <IoTrashOutline style={{cursor: 'pointer', color: "white"}} onClick={deleteEquipament}/>
         </div>  
 
         </>

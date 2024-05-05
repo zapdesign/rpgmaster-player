@@ -440,7 +440,7 @@ export default function SectionApp(){
                                         </div>
                                     ))}
                                     <div>
-                                        <FaPlus style={{cursor: 'pointer',height: '15px', width: '15px'}} onClick={createEquipament}/>
+                                        <FaPlus style={{cursor: 'pointer',height: '15px', width: '15px', color: "white"}} onClick={createEquipament}/>
                                     </div>
                                 </div>
 
