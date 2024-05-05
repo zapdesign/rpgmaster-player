@@ -12,7 +12,7 @@ import Persuasao from "@/component/personagem/testes/astucia";
 import Inventario from "@/component/personagem/equipamentos/inventário";
 import Armadura from "@/component/personagem/equipamentos/armadura";
 import LadoDireito from "@/component/personagem/ladoDireito";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import { NameInput } from "@/component/personagem/name";
 import Comitiva from "@/component/personagem/comitiva";
 import { FaPlus } from "react-icons/fa6";
@@ -388,11 +388,11 @@ export default function SectionApp(){
     
     const changePlayer = () => setChanges(true)
 
-    const { data, isLoading, isError } = useQuery('caracter', async () => {
-        searchCaracter()
-    },{
-        enabled: users[0] !== undefined,
-    })
+    useEffect(() => {
+        if(users[0] !== undefined){
+            searchCaracter()
+        }
+    }, [users])
 
     return (
         <AuthContent>

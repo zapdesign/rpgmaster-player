@@ -175,26 +175,6 @@ export default function Chat() {
             containerRef.current.scrollTop = containerRef.current.scrollHeight;
         }
     }
-
-    const getOldMessages = async () => {
-
-        try {
-
-            const response = await axiosInstance.get(`/chat/${users[0].project_id}`)
-            const data = await response.data
-            const novo = data.map((cada: Payload) => ({
-                id: cada.id,
-                name: cada.name,
-                text: cada.text,
-                player_id: cada.player_id,
-                isMine: cada.player_id === caracter[0].id
-            }))
-            setMsg(novo)
-
-        } catch (err) {
-            console.error(err)
-        }
-    } 
  
     useEffect(() => {
         async function receivedMessage(message: Payload) {
@@ -211,11 +191,13 @@ export default function Chat() {
             await new Promise(resolve => setTimeout(resolve, 10));
             scroll()
         }
-        console.log(caracter[0])
+        
         async function joinChatRoom() {
-            socket.emit('joinRoom', users[0].project_id);
-            getOldMessages()
-            console.log("dps", users[0].project_id)
+            if (users[0].project_id) {
+                socket.emit('joinRoom', users[0].project_id);
+                getOldMessages()
+            } else {
+            }
         }
     
         async function setupSocket() {
@@ -236,7 +218,25 @@ export default function Chat() {
     }, [socket, users]);
 
 
-    
+    const getOldMessages = async () => {
+
+        try {
+
+            const response = await axiosInstance.get(`/chat/${users[0].project_id}`)
+            const data = await response.data
+            const novo = data.map((cada: Payload) => ({
+                id: cada.id,
+                name: cada.name,
+                text: cada.text,
+                player_id: cada.player_id,
+                isMine: cada.player_id === caracter[0].id
+            }))
+            setMsg(novo)
+
+        } catch (err) {
+            console.error(err)
+        }
+    } 
 
     function enterMessage(event: any) {  
         if (event.key === "Enter") {

@@ -37,6 +37,8 @@ export default function AuthContent({children}: {children: React.ReactNode}){
             }
 
         }
+    }, {
+        staleTime: 1000 * 60 * 5,
     })
 
     if(isLoading){

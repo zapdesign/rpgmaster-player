@@ -6,11 +6,6 @@ import "@/styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
 
 export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60 * 5,
-    },
-  },
 })
 
 
