@@ -71,7 +71,7 @@ function rollDice(text: any) {
     return { total, rolls };
 }
 
-export default function Chat() {
+export default function Chat({users}: any) {
 
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -161,7 +161,6 @@ export default function Chat() {
     const [roll, setRoll] = useState('')
     const [rollResult, setRollResult] = useState('')
 
-    const { users } = useUsersStore()
     const { caracter } = useCaracterStore()
 
     const [isVisible, setIsVisible] = useState(false);
@@ -215,7 +214,7 @@ export default function Chat() {
             socket.off('msgToClient', receivedMessage);
             socket.off('connect', joinChatRoom);
         };
-    }, [socket, users]);
+    }, [socket]);
 
 
     const getOldMessages = async () => {

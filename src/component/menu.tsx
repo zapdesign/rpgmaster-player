@@ -8,6 +8,7 @@ import { useCaracterStore } from "@/store/caracter";
 import { MdLogout } from "react-icons/md";
 //@ts-ignore
 import cookieCutter from 'cookie-cutter'; 
+import { useUsersStore } from "@/store/users/Index";
 
 export default function MenuPrincipal({
     children,
@@ -15,6 +16,7 @@ export default function MenuPrincipal({
     children: React.ReactNode
   }) {
 
+    const {users } = useUsersStore()
     const { caracter } = useCaracterStore()
 
     const router = useRouter();
@@ -77,7 +79,7 @@ export default function MenuPrincipal({
               <div style={{marginTop: '450px', fontSize: '12px', display: 'flex', gap: '10px',padding: '12px 10px', color:" red", cursor: "pointer"}} onClick={exit}><MdLogout /> Deslogar</div>
             </section>
             {children}
-            {caracter[0] !== undefined && <Chat></Chat>}
+            {caracter[0] !== undefined && users[0] !== undefined && <Chat users={users}></Chat>}
         </section>
     )
   }
