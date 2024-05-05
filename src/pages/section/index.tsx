@@ -312,6 +312,9 @@ export default function SectionApp(){
     const [ changes, setChanges ] = useState(false)
 
     const [ havePerson, setHavePerson ] = useState(false)
+
+    const [ imagePlayer, setImagePlayer ] = useState(false)
+    const [ atualPlayer, setAtualPlayer ] = useState("")
  
     const searchCaracter = async () => {
         try{
@@ -414,7 +417,7 @@ export default function SectionApp(){
 
                             <div className={styles.inventarioOrganizacao}>
                                 <div className={styles.fundoEquipamento}>
-                                    <div className={styles.fundoFlex}>
+                                    <div className={styles.fundoFlexInput}>
                                         <div className={styles.fundoFlex30}>
                                             <p className={styles.nameFont}>Equipamento de guerra</p>
                                         </div>
@@ -456,7 +459,14 @@ export default function SectionApp(){
                     <div className={styles.barraInicial}></div>
 
                     {comitiva !== undefined && (
-                        <Comitiva comitiva={comitiva} setNewComitiva={setNewComitiva} setChanges={setChanges}></Comitiva>
+                        <Comitiva comitiva={comitiva} setNewComitiva={setNewComitiva} setChanges={setChanges} setAtualPlayer={setAtualPlayer} setImagePlayer={setImagePlayer}></Comitiva>
+                    )}
+
+                    {imagePlayer && (
+                        <div className={styles.fundoImagemGrande} onClick={() => {
+                            setImagePlayer(false)
+                            setAtualPlayer("")
+                        }}><img className={styles.imagemGrande} src={`data:image/jpeg;base64,${atualPlayer}`} alt="" /></div>
                     )}
 
                 </main>

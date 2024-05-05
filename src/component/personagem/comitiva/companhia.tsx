@@ -8,7 +8,7 @@ import { useUsersStore } from "@/store/users/Index";
 import { Comitiva } from "@/pages/section";
 import OtherPlayers from "./otherplayers";
 
-export default function Companhia({comitiva, setNewComitiva, setChanges}: any) {
+export default function Companhia({comitiva, setNewComitiva, setChanges, setImagePlayer, setAtualPlayer}: any) {
 
     const { caracter } = useCaracterStore()
     const { users } = useUsersStore()
@@ -91,7 +91,7 @@ export default function Companhia({comitiva, setNewComitiva, setChanges}: any) {
 
             {otherPlayers[0] !== undefined && otherPlayers.map((cada: Comitiva) => (
                 <div key={cada.id}>
-                    <OtherPlayers cada={cada}></OtherPlayers>
+                    <OtherPlayers cada={cada} setAtualPlayer={setAtualPlayer} setImagePlayer={setImagePlayer}></OtherPlayers>
                 </div>
             ))}
                 

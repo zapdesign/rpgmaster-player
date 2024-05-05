@@ -4,10 +4,11 @@ import CheckBoxEstrutura from "../checkbox/checkBoxEstrutura";
 import { useEffect, useState } from "react";
 
 
-export default function OtherPlayers({cada}: any) {
+export default function OtherPlayers({cada, setImagePlayer, setAtualPlayer}: any) {
 
     const [ myImage, setMyImage ] = useState('')
-    const isName = false
+    const [ canClick, setCanClick ] = useState(false)
+    const isName = false 
 
     const getImage = async () => {
         try{
@@ -18,6 +19,7 @@ export default function OtherPlayers({cada}: any) {
             }
             const novaBase64Image = Buffer.from(novaResponse.data, 'binary').toString('base64');
             setMyImage(novaBase64Image)
+            setCanClick(true)
     
         }catch(err){
             console.error(err)
@@ -31,8 +33,12 @@ export default function OtherPlayers({cada}: any) {
 
     return (
         <div className={styles.alignImage}>
-            <div className={styles.image}>
-            <img className={styles.image} src={`data:image/jpeg;base64,${myImage}`}></img>
+            <div className={styles.image}  style={{cursor: "pointer"}} onClick={() => {
+                if(!canClick) return
+                setImagePlayer(true)
+                setAtualPlayer(myImage)
+            }}>
+            <img className={styles.image} src={`data:image/jpeg;base64,${myImage}`} ></img>
             </div>
             <div className={styles.labelInput} style={{width: "30%"}}>
                 <label htmlFor="nome" className={styles.label}>Nome</label>

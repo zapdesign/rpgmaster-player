@@ -45,7 +45,7 @@ export default function Inventario({equip, searchEquipament}: any){
     return (
         <>
         <div key={cada.id} className={styles.fundoFlexInput}>
-            <div className={styles.fundoFlex30}>
+            <div className={styles.fundoFlex35}>
                 {changes && (
                     <button className={styles.button} onClick={attEquip}>Salvar</button>
                 )}
@@ -54,25 +54,25 @@ export default function Inventario({equip, searchEquipament}: any){
                     setChanges(true)
                     }} className={styles.inputGuerra}/>
             </div>
-            <div className={styles.fundoFlex13}>
+            <div className={styles.fundoFlex10}>
                 <input type="text" name='dano' placeholder='Digite aqui...' value={cada.dano} onChange={(e) => {
                     setEquipamento({...cada, dano: Number(e.target.value)}) 
                     setChanges(true)
                     }} className={styles.inputGuerra}/>
             </div>
-            <div className={styles.fundoFlex13}>
+            <div className={styles.fundoFlex10}>
                 <input type="text" name='ferimento' placeholder='Digite aqui...' value={cada.ferimento} onChange={(e) => {
                     setEquipamento({...cada, ferimento: Number(e.target.value)}) 
                     setChanges(true)
                     }} className={styles.inputGuerra}/>
             </div>
-            <div className={styles.fundoFlex13}>
+            <div className={styles.fundoFlex10}>
                 <input type="text" name='carga' placeholder='Digite aqui...' value={cada.carga} onChange={(e) => {
                     setEquipamento({...cada, carga: Number(e.target.value)}) 
                     setChanges(true)
                     }} className={styles.inputGuerra}/>
             </div>
-            <div className={styles.fundoFlex30}>
+            <div className={styles.fundoFlex35}>
                 <input type="text" name='anotacao_equipamento' placeholder='Digite aqui...' value={cada.anotacao_equipamento} onChange={(e) => {
                     setEquipamento({...cada, anotacao_equipamento: e.target.value}) 
                     setChanges(true)

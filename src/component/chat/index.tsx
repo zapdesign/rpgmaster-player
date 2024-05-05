@@ -97,6 +97,12 @@ export default function Chat() {
                 });
             }
 
+            const regexD12 = /\b(2d12|\d+d6)\s*\+\s*\d+d6\b|\b\d+d6\s*\+\s*(2d12|\d+d6)\b/g
+            const tem1d12 = text.match(regexD12);   
+            if(tem1d12) {
+                isValid = false
+            }
+
             if (isValid) {
                 const { total, rolls } = rollDice(text);
                 let resultText = '';
@@ -109,10 +115,46 @@ export default function Chat() {
 
                 resolve(`Resultados:\n${resultText}Soma total: ${total}`);
                 return
-            } else {
-                // Se não for válido, exibe uma mensagem de erro
-                reject('O número máximo de dados de cada número é 7.');
             }
+
+            if(!isValid){
+                let d12Results: number[] = [];
+                let d6Results: number[] = [];
+                
+                if (tem1d12) {
+                    // Roll 2d12
+                    d12Results = Array.from({ length: 2 }, () => Math.floor(Math.random() * 12) + 1);
+        
+                    tem1d12.forEach(match => {
+                        // Extract the number of d6 dice
+                        const d6Match = match.match(/\d+d6/);
+                        if (d6Match) {
+                            const numDice = parseInt(d6Match[0]);
+                            // Roll d6 dice
+                            d6Results = d6Results.concat(Array.from({ length: numDice }, () => Math.floor(Math.random() * 6) + 1));
+                        }
+                    });
+                }
+        
+                // Calculate the two final results
+                const maxD12 = Math.max(...d12Results);
+                const minD12 = Math.min(...d12Results);
+                const F = maxD12 + d6Results.reduce((acc, curr) => acc + curr, 0);
+                const D = minD12 + d6Results.reduce((acc, curr) => acc + curr, 0);
+        
+                // Format the output text
+                let resultText = 'Resultados:\n';
+                resultText += `d12: ${d12Results.join(', ')}\n`;
+                if (d6Results.length > 0) {
+                    resultText += `d6: ${d6Results.join(', ')}\n\n`;
+                }
+                resultText += `F: ${F}\n`;
+                resultText += `D: ${D}`;
+                console.log(resultText)
+                resolve(resultText);
+            }
+
+            
         })
     } 
 
@@ -143,7 +185,7 @@ export default function Chat() {
                     name: message.name,
                     text: message.text,
                     player_id: message.player_id,
-                    isMine: message.player_id === users[0].id
+                    isMine: message.player_id === caracter[0].id
                 }
             ]);
             await new Promise(resolve => setTimeout(resolve, 10));
@@ -185,7 +227,8 @@ export default function Chat() {
                 id: cada.id,
                 name: cada.name,
                 text: cada.text,
-                isMine: cada.player_id === users[0].id
+                player_id: cada.player_id,
+                isMine: cada.player_id === caracter[0].id
             }))
             setMsg(novo)
 
@@ -207,14 +250,14 @@ export default function Chat() {
 
             let message: Payload = {
                 name: users[0].name,
-                player_id: users[0].id,
+                player_id: caracter[0].id,
                 text,
                 room: users[0].project_id
             };
 
             const rolagem = await handleRollDice(message.text)
             if (rolagem) {
-                message.text = `${caracter[0].name}:\n${rolagem}`
+                message.text = ` ~-${caracter[0].name}-~\n${rolagem}`
                 message.name = 'RPGMaster'
                 message.player_id = "01"
             }
@@ -227,7 +270,7 @@ export default function Chat() {
         return name.charAt(0).toUpperCase();
     }
 
-
+    
     const [rollChoiceOn, setRollChoiceOn] = useState(false)
 
     const [rollTestOn, setRollTestOn] = useState(false)
@@ -272,8 +315,8 @@ export default function Chat() {
                                 </div>
                             ) : (
                                 <>
-                                    <div>
-                                        <p className={styles.fundoFotoChat}>{getFirstLetter(cada.name)}</p>
+                                    <div className={styles.fundoFotoChat}>
+                                        <ImageChat cada={cada}></ImageChat>
                                     </div>
                                     <div className={styles.fundoBubble}>
                                         <p className={styles.msgText}>{cada.text}</p>

@@ -137,3 +137,21 @@
     font-family: 'Aniron', 'Cinzel', sans-serif;
     font-size: 12px;
 }
+
+.fundoImagemGrande{
+    overflow: auto;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: fixed;
+    width: 100vw;
+    height: 100%; 
+}
+
+.imagemGrande{
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 90%;
+}

@@ -203,7 +203,7 @@ export default function LadoDireito({ changePlayer, newCaracter, setNewCaracter 
                             <p className={styles.textosMenores}>Sombra</p>
                         </div>
                         <div className={styles.ajeitarBaixo}>
-                            <div className={styles.losanguloPequeno}>
+                            <div className={styles.losanguloPequeno} style={{marginLeft: -7}}>
                                 <input type="text" value={newCaracter.cicatrizes_sombra} onKeyDown={changePlayer} onChange={(e) => setNewCaracter({ ...newCaracter, cicatrizes_sombra: Number(e.target.value) })} className={styles.inputLosanguloPequeno} />
                             </div>
                             <p className={styles.textosMenores}>Cicatrizes <br></br> de sombra</p>

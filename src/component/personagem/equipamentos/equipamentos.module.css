@@ -30,7 +30,7 @@
     display: flex;
     width: 100%;
     gap: 10px;
-    align-items: center;
+    align-items: just;
 }
 
 .fundoFlex60{
@@ -38,6 +38,13 @@
     width: 54%;
 }
 .fundoFlex30{
+    display: flex;
+    width: 30%;
+    gap: 5px;
+    align-items: flex-end;
+}
+
+.fundoFlex35{
     display: flex;
     width: 35%;
     gap: 5px;
@@ -48,9 +55,15 @@
     display: flex;
     width: 23%;
 }
-.fundoFlex13{
+.fundoFlex10{
     display: flex;
     width: 10%;
+    align-items: flex-end;
+}
+
+.fundoFlex13{
+    display: flex;
+    width: 13%;
     align-items: flex-end;
 }
 
