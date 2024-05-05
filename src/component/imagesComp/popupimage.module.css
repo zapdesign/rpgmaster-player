@@ -46,3 +46,22 @@
   .salvar:hover{
     transform: scale(115%);
   }
+
+
+.imagemGrande{
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 90%;
+}
+
+.fundoImagemGrande{
+  overflow: auto;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: absolute;
+  width: 100vw;
+  height: 100%; 
+}

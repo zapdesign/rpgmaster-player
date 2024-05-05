@@ -2,7 +2,6 @@ import { axiosInstance } from '@/services/axiosInstance';
 import styles from './popupimage.module.css'
 import { IoMdClose } from "react-icons/io";
 import { useState } from 'react';
-import { toast } from 'react-toastify';
 const MAX_FILE_SIZE = 1 * 1024 * 1024;
 
 

@@ -2,9 +2,8 @@ import { URL } from '@/services/baseURL';
 import { io } from 'socket.io-client';
 import { token } from '@/services/takeToken';
 import { useEffect, useState } from 'react';
-import { useUsersStore } from '@/store/users/Index';
 import { axiosInstance } from '@/services/axiosInstance';
-
+import styles from '../popupimage.module.css'
 
 const socket = io(URL, {
     auth: {
@@ -81,7 +80,12 @@ export default function ImageActive({users}: any) {
 
     return (
         <>
-            {actualImagem === "" ? <div></div> : <img src={`data:image/jpeg;base64,${actualImagem}`} alt="Auto Image" />}
+            {actualImagem === "" ? 
+            <div></div> : 
+            <div className={styles.fundoImagemGrande}>
+                <img className={styles.imagemGrande} src={`data:image/jpeg;base64,${actualImagem}`} alt="Auto Image" />
+            </div>
+            }
         </>
     )
 }
