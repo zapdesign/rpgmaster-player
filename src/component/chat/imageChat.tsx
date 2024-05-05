@@ -22,9 +22,6 @@ export default function ImageChat({cada}: any) {
         
     };
 
-    useEffect(() => {
-        getImage()
-    }, [])
 
     return (
         <>
