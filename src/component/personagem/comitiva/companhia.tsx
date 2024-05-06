@@ -20,9 +20,9 @@ export default function Companhia({comitiva, setNewComitiva, setChanges, setImag
 
     const getImage = async () => {
         try{
-            const novaResponse = await axiosInstance.get(`/upload/get/player-${caracter[0].id}`);
-            const novaBase64Image = Buffer.from(novaResponse.data, 'binary').toString('base64');
-            setMyImage(novaBase64Image)
+            const response= await axiosInstance.get(`/upload/get/player-${caracter[0].id}`);
+            const data = await response.data
+            setMyImage(data)
 
         }catch(err){
             console.error(err)
@@ -60,7 +60,7 @@ export default function Companhia({comitiva, setNewComitiva, setChanges, setImag
 
             <div className={styles.alignImage}>
                 <div className={styles.image}>
-                <img className={styles.image} src={`data:image/jpeg;base64,${myImage}`}></img>
+                <img className={styles.image} src={`${myImage}`}></img>
                 </div>
                 <div className={styles.labelInput} style={{width: "30%"}}>
                     <label htmlFor="nome" className={styles.label}>Nome</label>

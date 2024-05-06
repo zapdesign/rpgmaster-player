@@ -12,13 +12,13 @@ export default function OtherPlayers({cada, setImagePlayer, setAtualPlayer}: any
 
     const getImage = async () => {
         try{
-            const novaResponse = await axiosInstance.get(`/upload/get/player-${cada.player_id}`);
-            if(novaResponse.data === "Image not found"){
+            const response = await axiosInstance.get(`/upload/get/player-${cada.player_id}`);
+            const data = await response.data
+            if(data === "Image not found"){
                 setMyImage("")
                 return
             }
-            const novaBase64Image = Buffer.from(novaResponse.data, 'binary').toString('base64');
-            setMyImage(novaBase64Image)
+            setMyImage(data)
             setCanClick(true)
     
         }catch(err){
@@ -38,7 +38,7 @@ export default function OtherPlayers({cada, setImagePlayer, setAtualPlayer}: any
                 setImagePlayer(true)
                 setAtualPlayer(myImage)
             }}>
-            <img className={styles.image} src={`data:image/jpeg;base64,${myImage}`} ></img>
+            <img className={styles.image} src={`${myImage}`} ></img>
             </div>
             <div className={styles.labelInput} style={{width: "30%"}}>
                 <label htmlFor="nome" className={styles.label}>Nome</label>

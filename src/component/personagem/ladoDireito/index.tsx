@@ -30,7 +30,7 @@ export default function LadoDireito({ changePlayer, newCaracter, setNewCaracter 
         formData.append('file', arquivo);
       
         try {
-          const resposta = await axiosInstance.post(`/upload/player/${caracter[0].id}`, formData);
+          await axiosInstance.post(`/upload/player/${caracter[0].id}`, formData);
           await getImage()
           return
         } catch (erro) {
@@ -41,7 +41,7 @@ export default function LadoDireito({ changePlayer, newCaracter, setNewCaracter 
     const dellImage = async (arquivo: any) => {
         
         try {
-            const resposta = await axiosInstance.delete(`/upload/player/${caracter[0].id}`)
+            await axiosInstance.delete(`/upload/player/${caracter[0].id}`)
             enviarArquivo(arquivo)
 
             return
@@ -77,9 +77,9 @@ export default function LadoDireito({ changePlayer, newCaracter, setNewCaracter 
 
     const getImage = async () => {
         try{
-            const novaResponse = await axiosInstance.get(`/upload/get/player-${caracter[0].id}`);
-            const novaBase64Image = Buffer.from(novaResponse.data, 'binary').toString('base64');
-            setImagePlayer(novaBase64Image)
+            const response = await axiosInstance.get(`/upload/get/player-${caracter[0].id}`);
+            const data = await response.data
+            setImagePlayer(data)
 
         }catch(err){
             console.error(err)
@@ -115,7 +115,7 @@ export default function LadoDireito({ changePlayer, newCaracter, setNewCaracter 
                                 if (fileUpload) {
                                     fileUpload.click();
                                 }
-                            }} src={`data:image/jpeg;base64,${imagePlayer}`} alt='imagem do jogador'></img>
+                            }} src={`${imagePlayer}`} alt='imagem do jogador'></img>
                         </div>
                     ): (
                         <input type="file" style={{cursor: 'pointer'}} accept="image/png, image/jpeg" onChange={handleFileChange}/>

@@ -29,8 +29,7 @@ export default function ImageActive({users}: any) {
         try{
             const response = await axiosInstance(`upload/get/${image}`)
             const data = await response.data
-            const novaBase64Image = Buffer.from(data.data, 'binary').toString('base64');
-            setActualImage(novaBase64Image)
+            setActualImage(data)
             return
         }catch(err){
             console.error(err)
@@ -83,7 +82,7 @@ export default function ImageActive({users}: any) {
             {actualImagem === "" ? 
             <div></div> : 
             <div className={styles.fundoImagemGrande}>
-                <img className={styles.imagemGrande} src={`data:image/jpeg;base64,${actualImagem}`} alt="Auto Image" />
+                <img className={styles.imagemGrande} src={`${actualImagem}`} alt="Auto Image" />
             </div>
             }
         </>
