@@ -466,7 +466,7 @@ export default function SectionApp(){
                         <div className={styles.fundoImagemGrande} onClick={() => {
                             setImagePlayer(false)
                             setAtualPlayer("")
-                        }}><img className={styles.imagemGrande} src={`data:image/jpeg;base64,${atualPlayer}`} alt="" /></div>
+                        }}><img className={styles.imagemGrande} src={`${atualPlayer}`} alt="" /></div>
                     )}
 
                 </main>

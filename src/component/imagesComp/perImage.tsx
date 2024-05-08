@@ -26,7 +26,7 @@ export default function PerImage({cada, setGrandImage, setModal, openImage}: any
 
     return (
         <>
-            <img width="100%" height="150px" className={`${styles.image} ${cada.player_visible ? styles.hasAcess : styles.att}`} onClick={() => {
+            <img width="100%" height="150px" className={`${styles.image}`} onClick={() => {
                 if(cada.name === image) return
                 openImage(`${image}`)
             }} src={`${image}`}/>
