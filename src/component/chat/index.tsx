@@ -214,7 +214,7 @@ export default function Chat({users}: any) {
             socket.off('msgToClient', receivedMessage);
             socket.off('connect', joinChatRoom);
         };
-    }, [socket]);
+    }, [socket, users]);
 
 
     const getOldMessages = async () => {
