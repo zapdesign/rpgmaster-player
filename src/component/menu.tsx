@@ -127,6 +127,7 @@ export default function MenuPrincipal({
     useEffect(() => {
       async function receivedMessage(message: Payload) {
           getImage(message.text)
+          setImagemGrande(message.text)
       }
   
       async function joinChatRoom() {
