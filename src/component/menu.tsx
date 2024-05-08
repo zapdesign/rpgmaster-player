@@ -104,6 +104,7 @@ export default function MenuPrincipal({
           const response = await axiosInstance(`upload/get/${image}`)
           const data = await response.data
           setActualImage(data)
+          setImagemGrande(data)
           return
       }catch(err){
           console.error(err)
@@ -127,7 +128,7 @@ export default function MenuPrincipal({
     useEffect(() => {
       async function receivedMessage(message: Payload) {
           getImage(message.text)
-          setImagemGrande(message.text)
+          
       }
   
       async function joinChatRoom() {
