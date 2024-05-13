@@ -158,6 +158,8 @@ export default function Chat({users}: any) {
         })
     } 
 
+    const [ hasMessage, setHasMessage ] = useState(false)
+
     const [roll, setRoll] = useState('')
     const [rollResult, setRollResult] = useState('')
 
@@ -188,6 +190,7 @@ export default function Chat({users}: any) {
                 }
             ]);
             await new Promise(resolve => setTimeout(resolve, 10));
+            setHasMessage(true)
             scroll()
         }
         
@@ -293,15 +296,21 @@ export default function Chat({users}: any) {
                 <button className={styles.botaoAbrir} onClick={() => {
                     setIsVisible(true)
                     scroll()
+                    setHasMessage(false)
                 }
                 }>
                     <IoChatbubblesOutline />
+                    {hasMessage && <div className={styles.newMessage}></div>}
                 </button>
             )}
 
             <div className={`${styles.chatContainer} ${isVisible ? styles.visible : ''}`}>
+
                 <div className={styles.headerChat}>
-                    <IoMdClose onClick={() => setIsVisible(false)} style={{ cursor: 'pointer' }}></IoMdClose>
+                    <IoMdClose onClick={() => {
+                        setIsVisible(false)
+                        setHasMessage(false)
+                    }} style={{ cursor: 'pointer' }}></IoMdClose>
                     <p className={styles.textoPrincipal}>Chat Geral</p>
                     <div></div>
                 </div>
