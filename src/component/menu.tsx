@@ -158,8 +158,8 @@ export default function MenuPrincipal({
             <section style={{display: 'flex', flexDirection: 'column', width: '5%', padding: '25px 15px', background: '#101119', borderRight: 'solid 1px #141421'}}>
               <Image width={50} height={15} src="/logo.svg" alt="Logo RPG Master" onClick={exit}></Image> 
 
-              <Link href={`/section`} style={{marginTop: '35px', justifyContent: "center", fontSize: '12px', display: 'flex', gap: '10px',padding: '12px 10px', backgroundColor: isActive(`/section`) ? "#12131D" : "none", border: isActive(`/section`) ? "solid 1px #292943" : "none", borderRadius: '10px'}}><GoPeople/></Link>
-              <div style={{marginTop: '15px',justifyContent: "center", fontSize: '12px', display: 'flex', gap: '10px',padding: '12px 10px', backgroundColor: image ? "#12131D" : "none", border: image ? "solid 1px #292943" : "none", borderRadius: '10px', cursor: "pointer"}} onClick={() => setImage(!image)}><FaFilm/></div>
+              <Link href={`/section`} style={{marginTop: '35px', justifyContent: "center", fontSize: '12px', display: 'flex', gap: '10px', color: "white", padding: '12px 10px', backgroundColor: isActive(`/section`) ? "#12131D" : "none", border: isActive(`/section`) ? "solid 1px #292943" : "none", borderRadius: '10px'}}><GoPeople style={{color: "white"}}/></Link>
+              <div style={{marginTop: '15px',justifyContent: "center", fontSize: '12px', display: 'flex', gap: '10px', color: "white", padding: '12px 10px', backgroundColor: image ? "#12131D" : "none", border: image ? "solid 1px #292943" : "none", borderRadius: '10px', cursor: "pointer"}} onClick={() => setImage(!image)}><FaFilm style={{color: "white"}}/></div>
             
             </section>
 
