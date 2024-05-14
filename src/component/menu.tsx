@@ -5,13 +5,11 @@ import { FaFilm } from "react-icons/fa";
 import { GoPeople } from "react-icons/go";
 import Chat from "./chat";
 import { useCaracterStore } from "@/store/caracter";
-import { MdLogout } from "react-icons/md";
 //@ts-ignore
 import cookieCutter from 'cookie-cutter'; 
 import { useUsersStore } from "@/store/users/Index";
 import ImagesMaster from "@/component/images";
 import { useEffect, useState } from "react";
-import ImageActive from "./imagesComp/active";
 import { URL } from '@/services/baseURL';
 import { io } from 'socket.io-client';
 import { token } from '@/services/takeToken';
@@ -159,7 +157,7 @@ export default function MenuPrincipal({
               <Image width={50} height={15} src="/logo.svg" alt="Logo RPG Master" onClick={exit}></Image> 
 
               <Link href={`/section`} style={{marginTop: '35px', justifyContent: "center", fontSize: '12px', display: 'flex', gap: '10px', color: "white", padding: '12px 10px', backgroundColor: isActive(`/section`) ? "#12131D" : "none", border: isActive(`/section`) ? "solid 1px #292943" : "none", borderRadius: '10px'}}><GoPeople style={{color: "white"}}/></Link>
-              <div style={{marginTop: '15px',justifyContent: "center", fontSize: '12px', display: 'flex', gap: '10px', color: "white", padding: '12px 10px', backgroundColor: image ? "#12131D" : "none", border: image ? "solid 1px #292943" : "none", borderRadius: '10px', cursor: "pointer"}} onClick={() => setImage(!image)}><FaFilm style={{color: "white"}}/></div>
+              <div style={{marginTop: '15px',justifyContent: "center", fontSize: '12px', display: 'flex', gap: '10px', color: "white", padding: '12px 10px',border: image ? "solid 1px #292943" : "none", borderRadius: '10px', cursor: "pointer"}} onClick={() => setImage(!image)}><FaFilm style={{color: "white"}}/></div>
             
             </section>
 
@@ -171,12 +169,13 @@ export default function MenuPrincipal({
                </div>
             )}
 
-            <img src={actualImagem} alt="Atual Image" style={{position: "fixed", bottom: 0, left: 0, width: "4%", margin: "0px 0px 10px 6px", border:"solid 2px #292943", borderRadius: "5px", cursor: "pointer"}} onClick={() => {
+            <img src={actualImagem === "" ? "/onering.webp" : actualImagem} alt="Atual Image" style={{position: "fixed", bottom: 0, left: 0, width: "4%", margin: "0px 0px 10px 6px", border:"solid 2px #292943", borderRadius: "5px", cursor: "pointer"}} onClick={() => {
+              if(actualImagem === "") return
               setImagemGrande(actualImagem)
               setModalImagem(true)
             }}/>
             
-            {modalImagem && <div onClick={() => setModalImagem(false)} style={{position: "absolute", zIndex: "999", alignItems: "center", justifyContent: "center", display:"flex", width: "100%", height:"100%", cursor: "pointer"}}><img src={imagemGrande} alt="Image em grande tamanho" style={{maxHeight: "100vh", maxWidth: "100%"}}/></div>}
+            {modalImagem && <div onClick={() => setModalImagem(false)} style={{position: "fixed", zIndex: "999", alignItems: "center", justifyContent: "center", display:"flex", width: "100%", height:"100%", cursor: "pointer"}}><img src={imagemGrande} alt="Image em grande tamanho" style={{maxHeight: "100vh", maxWidth: "100%"}}/></div>}
             
             {caracter[0] !== undefined && users[0] !== undefined && <Chat users={users}></Chat>}
         </section>

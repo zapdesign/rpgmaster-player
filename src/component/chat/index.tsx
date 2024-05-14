@@ -70,7 +70,6 @@ function rollDice(text: any) {
 
     return { total, rolls };
 }
-
 export default function Chat({users}: any) {
 
     const containerRef = useRef<HTMLDivElement>(null);
